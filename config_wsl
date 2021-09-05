@@ -1,0 +1,126 @@
+#! /bin/bash
+
+# ## source.list change
+# mv /etc/apt/sources.list /etc/apt/sources.list.d/sources.list.1
+# sudo touch /etc/apt/sources.list
+# echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+# # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
+# sudo apt update
+
+echo "***************************************"
+echo "*                                     *"
+echo "*        0    exit                    *"
+echo "*        1    gfortran                *"
+echo "*        2    gnuplot                 *"
+echo "*        3    python3                 *"
+echo "*        4    expect                  *"
+echo "*        5    ssh keygen              *"
+echo "*        6    trash-cli               *"
+echo "*        7    there is nothing        *"
+echo "*                                     *"
+echo "***************************************"
+
+echo "Please choose which u need."
+read -p "Input your number: " num
+case $num in
+	0)
+		exit
+		;;
+	1)
+		sudo apt install gfortran -y
+		;;
+	2)
+		sudo apt install gnuplot -y
+		;;
+	3)
+		sudo apt install python3 -y
+		;;
+	4)
+		sudo apt install expect -y
+		;;
+	5)
+		expect -c "
+			spawn ssh-keygen -y
+			expect {
+				\"Enter file in which the key is (/home/imybfu/.ssh/id_rsa):\" {send \"\r\";exp_continue}
+			}
+		"
+		;;
+	6)
+		sudo apt install trash-cli -y
+		echo -e "alias rm='trash-put'\nalias lst='trash-list'\nalias ret='trash-restore'\n" >> ~/.bashrc
+		source ~/.bashrc
+		;;
+	7)
+		echo "what is your name?"
+		read name
+		echo "are u male or female?"
+		read gender
+		echo "how old are u?"
+		read age
+		echo "when is your birthday?"
+	       	read -p "like 0928: " day
+		echo "what package do u want?"
+		read pack
+
+		echo " __________________________________ "
+		echo "|                                  |"
+		echo "|  THX, Now u can input:           |"
+		echo "|  apt list [pack_search_name]     |"
+		echo "|  to search package, then         |"
+		echo "|  sudo apt install [package_name] |"
+		echo "|  to install.                     |"
+		echo "|__________________________________|"
+
+		read  -p "Press any key to continue: " reply1
+
+		echo "# --------------------" >> ./config_f
+		echo -e "# name = $name\n# gender = $gender\n# age = $age\n# birthday = $day\n# package = $pack" >> ./config_f
+
+		if [[ $day == 1018 ]]; then
+			echo -e "__________________________________________\n\nnana baby, i love u! Can u wait a moment?"
+			read -p "yes or no: " yon
+			if [[ $yon == y* ]]; then
+				echo -e "_________________________________\n\nRemember 'Ctrl + C'to exit later."
+				read -p "Press any key to continue: " reply2
+				sudo apt install nyancat -y
+				nyancat
+			fi			
+		fi
+		;;
+esac	
+
+echo "___________________________________________"
+echo "                COMPLETED!!!               "
+
+
+# --------------------
+# name = s
+# gender = a
+# age = a
+# birthday = 1018
+# package = w
+# --------------------
+# name = 2
+# gender = w
+# age = r
+# birthday = 1018
+# package = w
+# --------------------
+# name = a
+# gender = s
+# age = d
+# birthday = 1018
+# package = w
+# --------------------
+# name = s
+# gender = d
+# age = a
+# birthday = 1018
+# package = a
